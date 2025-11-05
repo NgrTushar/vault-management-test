@@ -1,0 +1,43 @@
+[package]
+name = "collateral-vault-testing"
+version = "0.1.0"
+description = "Created with Anchor"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "collateral_vault_testing"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build","anchor-spl/idl-build"]
+anchor-debug = []
+custom-heap = []
+custom-panic = []
+
+
+
+[dependencies]
+anchor-lang = { version = "0.32.1", features = ["init-if-needed"] }
+anchor-spl = { version = "0.32.1", features = ["spl-token"] }
+
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(target_os, values("solana"))'] }
+ 
+[dev-dependencies]
+#mollusk-svm = { version = "0.0.4"}
+solana-program-test = "*"
+solana-sdk = "*"
+spl-token = "*"
+tokio = { version = "1.38.0", features = ["macros", "rt-multi-thread"] }
+
+# To import the mock program for the integration test.
+# This path goes up two levels (../../) to the root,
+# then into the mock-position-manager workspace,
+# and finally into its program crate.
+mock-position-manager = { path = "../../../mock-position-manager/programs/mock-position-manager", features = ["cpi"] }
